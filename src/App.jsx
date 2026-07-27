@@ -4,9 +4,7 @@ import './App.css';
 import { testimonials } from './testimonials';
 
 function App() {
-  const [query, setQuery] = useState(
-    "SELECT s.name, b.timestamp, b.checkpoint, b.action, b.description\nFROM badge_logs b\nJOIN students s ON s.id = b.student_id\nWHERE b.checkpoint = 'Porta_Giardino';"
-  );
+  const [query, setQuery] = useState('');
   const [results, setResults] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -21,15 +19,6 @@ function App() {
     initDatabase()
       .then(() => {
         setLoading(false);
-        // Esegue la query iniziale in automatico quando il DB è pronto
-        try {
-          const initialRes = executeQuery(
-            "SELECT s.name, b.timestamp, b.checkpoint, b.action, b.description FROM badge_logs b JOIN students s ON s.id = b.student_id WHERE b.checkpoint = 'Porta_Giardino';"
-          );
-          setResults(initialRes);
-        } catch (e) {
-          console.log(e);
-        }
       })
       .catch((err) => {
         setError("Errore caricamento DB: " + err.message);
@@ -38,7 +27,7 @@ function App() {
   }, []);
 
   const handleRunQuery = () => {
-    if (loading) return;
+    if (loading || !query.trim()) return;
     
     setError(null);
     try {
@@ -52,17 +41,13 @@ function App() {
 
   const handleAccuse = (e) => {
     e.preventDefault();
-    if (suspect === 'Manuel') {
+    if (suspect === 'Sandro') {
       setAccusationResult(
-        '🎉 CASO RISOLTO! Manuel è crollato sotto le prove! I badge log dimostrano che ha usato il tonno per attirare Fulgenzio nella scatola alle 14:44 per il "test con il cane", e ha mentito dicendo di aver chiuso la porta alle 15:10 (non c’è alcun log!). Incastrato!'
-      );
-    } else if (suspect === 'Sandro') {
-      setAccusationResult(
-        '❌ Sbagliato! Sandro ha mentito sull’essere sul divano, ma è uscito solo alle 15:02 per cercare le sue chiavi perse. Non è stato lui a far sparire Fulgenzio con la scatola!'
+        'CASO RISOLTO! Sandro è crollato sotto le prove! I badge log e le testimonianze dimostrano che è stato l’unico a registrare un passaggio alla Porta d’Ingresso (OUT/IN) proprio tra le 20:45 e le 20:47, lasciando scappare Fulgenzio dopo essersi infastidito in cucina!'
       );
     } else if (suspect) {
       setAccusationResult(
-        `❌ Sbagliato! ${suspect} ha un alibi confermato dai log dei badge o dalle testimonianze incrociate. Rivedi le tue query!`
+        `Sbagliato! ${suspect} ha un alibi confermato dai log dei badge o dalle testimonianze incrociate. Controlla bene gli orari tra le 20:30 e le 21:00!`
       );
     }
   };
@@ -85,19 +70,19 @@ function App() {
   return (
     <div className="app-container">
       <header>
-        <h1>🔎 Caso Fulgenzio: Chi ha fatto sparire il gatto?</h1>
+        <h1>Missing Fulgenzio</h1>
         <button onClick={() => setShowDossier(!showDossier)} className="btn-dossier">
-          {showDossier ? '❌ Chiudi Dossier' : '📄 Apri Dossier Testimonianze (16)'}
+          {showDossier ? 'Chiudi Dossier' : 'Apri Dossier Testimonianze (16)'}
         </button>
       </header>
 
       {/* Dossier Testimonianze Dinamico */}
       {showDossier && (
         <div className="dossier-box" style={{ background: '#1e293b', padding: '16px', borderRadius: '8px', marginBottom: '20px', border: '1px solid #334155' }}>
-          <h3>📂 Registro Verbali Testimonianze</h3>
+          <h3>Registro Verbali Testimonianze</h3>
           <input 
             type="text" 
-            placeholder="Cerca per nome, stanza o parola chiave (es. tonno, pizza)..."
+            placeholder="Cerca per nome, stanza o parola chiave (es. gatto, porta)..."
             value={filterText}
             onChange={(e) => setFilterText(e.target.value)}
             style={{ width: '100%', padding: '8px', marginBottom: '12px', borderRadius: '4px', border: '1px solid #475569', background: '#0f172a', color: '#fff' }}
@@ -123,10 +108,11 @@ function App() {
           <textarea 
             value={query} 
             onChange={(e) => setQuery(e.target.value)}
+            placeholder="Scrivi qui la tua query SQL... "
             rows={5}
             style={{ fontFamily: 'monospace' }}
           />
-          <button onClick={handleRunQuery} className="btn-primary" disabled={loading}>
+          <button onClick={handleRunQuery} className="btn-primary" disabled={loading || !query.trim()}>
             Esegui Query
           </button>
 
@@ -166,7 +152,6 @@ function App() {
             <label>Chi è il colpevole?</label>
             <select value={suspect} onChange={(e) => setSuspect(e.target.value)}>
               <option value="">-- Seleziona Sospettato --</option>
-              {/* Genera automaticamente tutti i 16 studenti nel menu a tendina */}
               {testimonials.map((t) => (
                 <option key={t.student_id} value={t.name}>
                   {t.name} (Stanza {t.room})
@@ -176,7 +161,11 @@ function App() {
             <button type="submit" className="btn-danger" style={{ marginTop: '12px' }}>Invia Accusa</button>
           </form>
 
-          {accusationResult && <div className="verdict" style={{ marginTop: '16px', padding: '12px', borderRadius: '6px', background: accusationResult.startsWith('🎉') ? '#065f46' : '#7f1d1d' }}>{accusationResult}</div>}
+          {accusationResult && (
+            <div className="verdict" style={{ marginTop: '16px', padding: '12px', borderRadius: '6px', background: accusationResult.startsWith('🎉') ? '#065f46' : '#7f1d1d' }}>
+              {accusationResult}
+            </div>
+          )}
         </section>
       </div>
     </div>

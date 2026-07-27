@@ -1,100 +1,98 @@
-// Database delle testimonianze degli studenti - Versione "Intrigo e Depistaggio"
-
 export const testimonials = [
   {
     student_id: 1,
     name: "Nicole",
     room: 101,
-    statement: "Io e Vale eravamo in giardino fino alle 13:00. Poi sono salita. Alle 14:45 ho visto Manuel che sgusciava verso la Porta Giardino con una scatola sospetta sotto il braccio. Diceva che erano 'libri', ma secondo me nascondeva qualcosa. Non fidatevi di lui!"
+    statement: "Non avrei mai fatto del male a Fulgenzio. L'unico motivo per cui ho scelto di trasferirmi in questo studentato è che amo i gatti. Non avevo considerato che per andare a fare la spesa tra una cosa e l'altra sto fuori casa un'ora e mezza. Ieri? Oh sì ho fatto la spesa ma non ho portato il gatto al supermercato."
   },
   {
     student_id: 2,
     name: "Vale",
     room: 101,
-    statement: "Nicole dice che eravamo insieme fino alle 13:00? Veramente lei alle 12:30 è salita in camera a parlare al telefono per un'ora! Io sono rimasta in giardino da sola. Ho visto Jess che lasciva le scatolette a Fulgenzio, ma poi la porta è rimasta accostata perché la serratura scatta solo se spingi forte."
+    statement: "Oggi pomeriggio mi sono addormentata mentre in tv c'era una serie tv che guarda sempre Vince. Fulgenzio? quando mi sono svegliata non era lì. Effettivamente non l'ho visto per nulla tutto il giorno."
   },
   {
     student_id: 3,
     name: "Jess",
     room: 102,
-    statement: "Guardate che Fulgenzio NON era in cucina a mangiare! Le scatolette che ho aperto alle 12:03 non le ha toccate. In realtà l'ho visto inseguire qualcosa verso il corridoio della Sala TV verso le 14:30. E comunque Sandro non dormiva: l'ho sentito litigare al telefono in giardino già verso le 13:30!"
+    statement: "Ho portato da mangiare a Fulgenzio in cucina come sempre alle 12.03. Tuttavia quando sono rientrata più tardi, tra le 14 e le 14.15, la ciotola era ancora piena."
   },
   {
     student_id: 4,
     name: "Dile",
     room: 102,
-    statement: "Tutti dicono che ero in biblioteca, ma la verità è che sono tornata di nascosto alle 14:15 perché avevo dimenticato il caricabatterie. Ho visto la Porta Giardino Spalancata. L'ho chiusa io! Quindi se il gatto è uscito, è uscito PRIMA delle 14:15. Oppure qualcuno l'ha riaperta dopo..."
+    statement: "Quando sono uscita tra le 9.00 e le 9.10 Fulgenzio era a casa. Dormiva beato sulle sedie all'ingresso."
   },
   {
     student_id: 5,
     name: "Erika",
     room: 103,
-    statement: "Io e Ilaria avevamo un caldo soffocante in Sala Studio. Verso le 14:50 sono scesa e ho messo un fermaporta alla Porta Giardino per far girare l'aria! Lo ammetto! Ma il gatto era dormiente sulla poltrona all'ingresso. Non è uscito in quel momento, ne sono sicura al 100%."
+    statement: "Questo periodo è pieno di esami. Sono stata tutta la sera a studiare. Se qualcuno avesse fatto uscire Fulgezio dalle 19 alle 22 me ne sarei accorta visto che la sala studio è vicina all'ingresso."
   },
   {
     student_id: 6,
     name: "Ilaria",
     room: 103,
-    statement: "Erika mente! Lei non è mai scesa a mettere il fermaporta alle 14:50, è rimasta in camera con me a guardare vestiti online fino alle 15:30. Chiunque abbia messo quel fermaporta sta usando il nome di Erika per coprirsi!"
+    statement: "Quando sono rientrata alle 19.50 ho pensato che era strano che Fulgenzio non venisse a farmi le fusa. Di solito arriva sempre di corsa perché sa che gli porto un bocconcino di tonno."
   },
   {
     student_id: 7,
     name: "Margie",
     room: 104,
-    statement: "Io ho visto Pietro e Vince che facevano battute strane sul 'liberare Fulgenzio'. Dicevano che il gatto merita la libertà e non la prigionia dell'appartamento. Alle 15:15 Pietro è andato verso il giardino da solo con una pallina di lana..."
+    statement: "Oggi avevo un aperitivo per il compleanno di una collega. Alle 15.20 sono uscita a prendere il bus. Ho sentito che dalla sala tv Vince cercava di parlare una lingua strana, ma non so a chi si rivolgesse."
   },
   {
     student_id: 8,
     name: "Emi",
     room: 104,
-    statement: "Ma quale libertà! Pietro ha la fobia dei gatti! Comunque io verso le 15:00 ho sentito qualcuno che tentava di far entrare un rider della pizza dalla porta del giardino per non pagare la consegna al portone principale. I soliti tirchi della camera 106?"
+    statement: ""
   },
   {
     student_id: 9,
     name: "Gian",
     room: 105,
-    statement: "Io ammetto che ero in casa. Avevo detto che ero fuori per non farmi tirare dentro le pulizie del sabato. Alle 14:40 ero sulle scale e ho visto Sandro che correva disperato col telefono. Ma non è uscito in giardino, è corso in cantina!"
+    statement: "Sono stato al lavoro tutto il giorno. Intorno alle 9 ho sentito un po' di rumori ma non ho controllato il gatto. Ero di fretta e non mi sono nemmeno girato. Alle 23 quando sono rientrato c'era solo il silenzio... troppo silenzio."
   },
   {
     student_id: 10,
     name: "Sandro",
     room: 105,
-    statement: "Ok, va bene, ho mentito prima sul dormire sul divano! Ero in ansia perché ho perso le chiavi di casa. Verso le 15:00 sono uscito in giardino a cercarle tra l'erba. La porta l'ho lasciata aperta apposta per non rimanere chiuso fuori! Ma è stato solo per 5 minuti, poi Lori mi ha visto e mi ha detto che le chiavi erano all'ingresso."
+    statement: "Ho cucinato alle 20.30 e ho visto che la ciotola del gatto era vuota. Poi dalle 20.45 mi sono messo in sala tv con le cuffie e il computer fino alle 22.30: c'era la partita." 
   },
   {
     student_id: 11,
     name: "Jaco",
     room: 106,
-    statement: "Se volete la verità vera: Manuel sta cercando di adottare un cane da un canile e voleva verificare se Fulgenzio fosse aggressivo con gli altri animali. Alle 14:30 ha fatto entrare un cagnolino dal giardino per fare 'un test'! Lì è successo il caos ed è scappato tutto."
+    statement: ""
   },
   {
     student_id: 12,
     name: "Manuel",
     room: 106,
-    statement: "Jaco inventa storie per coprire il suo disastro! La scatola che avevo alle 14:45 era un pacco Amazon per LORI. E il cane non era mio, era del rider della pizza! Comunque io la porta l'ho chiusa a chiave alle 15:10."
+    statement: "Non mi devono rompere con queste cose del gatto. Sono allergico e non lo voglio tra i piedi, soprattutto quando mi metto a vedere un film in sala tv come ieri pomeriggio. A che ora è finito il film? Non erano ancora le 15, mi pare."
   },
   {
     student_id: 13,
     name: "Vince",
     room: 107,
-    statement: "Pietro stava giocando a FIFA con me dalle 13:30 alle 16:00 SENZA INTERRUZIONI. Margie si sta confondendo o vuole incastrare noi perché gli facciamo rumore sopra la testa. L'unica cosa strana: tra le 14:30 e le 15:00 c'è stato un continuo scricchiolio dalla serratura del giardino."
+    statement: "Mi sono dovuto litigare la sala tv con Manuel. Quando poi lui se n'è andato ho guardato un episodio di Game of Thrones. Fulgenzio era lì, ho provato a insegnargli dei comandi in Alto Valyriano."
   },
   {
     student_id: 14,
     name: "Pietro",
     room: 107,
-    statement: "Confermo tutto ciò che dice Vince. E aggiungo: Margie dice che ho la fobia dei gatti? Falso, sono allergico, non fobico! Non mi avvicinerei mai a Fulgenzio con una pallina di lana, finirei al pronto soccorso col cortisone."
+    statement: "Di solito sto molto di più in sala tv, mi rilassa proprio. Invece ieri solo una volta e per tutto il tempo Fulgenzio ha dormito sul divano. Russava talmente forte che non sentivo bene il film."
   },
   {
     student_id: 15,
     name: "Lori",
     room: 108,
-    statement: "Io ho trovato le chiavi di Sandro alle 15:05 e gliel'ho detto. Quando sono andato ad avvisarlo in giardino, la porta era Spalancata, c'era il fermaporta di Erika e vicino al cespuglio c'era un piattino con del tonno! Qualcuno ha chiaramente attirato il gatto fuori a posta!"
+    statement: "Il mio comagno di stanza non è un chiacchierone. Per riempire il tempo sto seguendo un corso di cucina online. Ho provato una ricetta che mi ha preso 8 ore intere e prevedeva tre step. Non è nemmeno venuta così bene alla fine..."
   },
   {
     student_id: 16,
     name: "Andrea",
     room: 108,
-    statement: "Il piattino col tonno l'ho messo io alle 13:00 per farlo mangiare all'aperto! Ma poi l'ho riportato dentro alle 13:30... o almeno pensavo fosse il mio piattino. Aspetta, ma non è che in casa c'erano DUE piattini di tonno? Jess diceva di avergli dato la scatoletta alle 12:03..."
+    statement: "..."
   }
 ];
