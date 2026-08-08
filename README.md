@@ -13,3 +13,8 @@ Learn SQL fundamentals by playing detective. Analyze suspect statements, query a
 1. **Analyze Testimonials:** Review witness statements to reconstruct the timeline and identify suspicious activity.
 2. **Execute SQL Queries:** Query the database logs to verify real movements against alibis.
 3. **Solve the Case:** Catch the suspect who lied about their whereabouts and submit your accusation!
+
+---
+
+# 🐱 Missing Cat
+🎮 **Gioca ora online:** [missing-cat.vercel.app](https://missing-cat.vercel.app)
