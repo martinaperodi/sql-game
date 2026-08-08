@@ -10,10 +10,10 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [showDossier, setShowDossier] = useState(false);
   const [showSchemaModal, setShowSchemaModal] = useState(false);
-  const [showBriefingModal, setShowBriefingModal] = useState(true); // Aperto di default all'avvio!
+  const [showBriefingModal, setShowBriefingModal] = useState(true);
   const [filterText, setFilterText] = useState('');
   
-  // Modulo accusa
+  // Accusation state
   const [suspect, setSuspect] = useState('');
   const [accusationResult, setAccusationResult] = useState('');
 
@@ -23,31 +23,17 @@ function App() {
         setLoading(false);
       })
       .catch((err) => {
-        setError("Errore caricamento DB: " + err.message);
+        setError("Database loading error: " + err.message);
         setLoading(false);
       });
   }, []);
 
-  // const handleRunQuery = () => {
-  //   if (loading || !query.trim()) return;
-    
-  //   setError(null);
-  //   try {
-  //     const res = executeQuery(query);
-  //     setResults(res);
-  //   } catch (err) {
-  //     setError(err.message);
-  //     setResults(null);
-  //   }
-  // };
-
-    // 📍 Sostituisci la tua handleRunQuery attuale con questa:
   const handleRunQuery = async () => {
     if (loading || !query.trim()) return;
     
     setError(null);
     try {
-      const res = await executeQuery(query); // <-- 'async' in alto e 'await' qui
+      const res = await executeQuery(query);
       setResults(res);
     } catch (err) {
       setError(err.message);
@@ -59,11 +45,11 @@ function App() {
     e.preventDefault();
     if (suspect === 'Sandro') {
       setAccusationResult(
-        'CASO RISOLTO! Sandro è crollato sotto le prove! I badge log e le testimonianze dimostrano che è stato l’unico a registrare un passaggio alla Porta d’Ingresso (OUT/IN) proprio tra le 20:45 e le 20:47, lasciando scappare Fulgenzio dopo essersi infastidito in cucina!'
+        'CASE SOLVED! Sandro confessed under pressure! The badge logs and cross-referenced testimonies prove he was the only one who recorded an entry/exit at the Main Entrance (OUT/IN) between 8:45 PM and 8:47 PM, letting Fulgenzio escape after getting annoyed in the kitchen!'
       );
     } else if (suspect) {
       setAccusationResult(
-        `Sbagliato! ${suspect} ha un alibi confermato dai log dei badge o dalle testimonianze incrociate. Controlla bene gli orari tra le 20:30 e le 21:00!`
+        `WRONG! ${suspect} has a confirmed alibi supported by badge logs or cross-referenced testimonies. Double check the timestamps between 8:30 PM and 9:00 PM!`
       );
     }
   };
@@ -76,85 +62,80 @@ function App() {
 
   if (loading) {
     return (
-      <div style={{ color: '#38bdf8', padding: 40, fontFamily: 'monospace', textAlign: 'center' }}>
-        ⏳ Caricamento ed inizializzazione del Database SQLite in corso...
+      <div style={{ color: '#38bdf8', padding: '40px', fontFamily: 'monospace', textAlign: 'center', fontSize: '1.1rem' }}>
+        Loading and initializing SQLite Database...
       </div>
     );
   }
 
   return (
-    <div className="app-container">
-      <header>
-        <h1>Missing Fulgenzio</h1>
+    <div className="app-container" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 24px', borderBottom: '1px solid #334155' }}>
+        <h1 style={{ margin: 0, color: '#f8fafc', fontSize: '1.8rem' }}>Missing Fulgenzio</h1>
         <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-          {/* Bottone evidenziato per il Briefing */}
-          <button 
-            onClick={() => setShowBriefingModal(true)} 
-            className="btn-primary" 
-            style={{ background: '#f59e0b', color: '#0f172a', fontWeight: 'bold' }}
-          >
-            Caso & Regole
+          <button onClick={() => setShowBriefingModal(true)} className="btn-dossier">
+            Case & Rules
           </button>
           
-          <button onClick={() => setShowSchemaModal(true)} className="btn-dossier" style={{ background: '#334155' }}>
-            Struttura DB / ER
+          <button onClick={() => setShowSchemaModal(true)} className="btn-dossier">
+            DB Schema / ER
           </button>
           
           <button onClick={() => setShowDossier(!showDossier)} className="btn-dossier">
-            {showDossier ? 'Chiudi Dossier' : 'Apri Dossier Testimonianze (16)'}
+            {showDossier ? 'Close Dossier' : 'Open Testimonial Dossier (16)'}
           </button>
         </div>
       </header>
 
-      {/* MODALE BRIEFING / CASO DEL PROPRIETARIO */}
+      {/* BRIEFING / CASE MODAL */}
       {showBriefingModal && (
         <div style={{
           position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.85)',
+          backgroundColor: 'rgba(15, 23, 42, 0.9)',
           display: 'flex', justifyContent: 'center', alignItems: 'center',
           zIndex: 1000, padding: '20px'
         }}>
           <div style={{
-            background: '#0f172a', border: '2px solid #f59e0b', borderRadius: '12px',
+            background: '#0f172a', border: '1px solid #f59e0b', borderRadius: '12px',
             padding: '24px', maxWidth: '650px', width: '100%', maxHeight: '85vh',
             overflowY: 'auto', color: '#f8fafc', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.5)'
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-              <h2 style={{ margin: 0, color: '#f59e0b', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                Il Caso Fulgenzio
+              <h2 style={{ margin: 0, color: '#f59e0b', fontSize: '1.4rem' }}>
+                The Fulgenzio Case
               </h2>
               <button 
                 onClick={() => setShowBriefingModal(false)}
-                style={{ background: 'transparent', border: 'none', color: '#94a3b8', fontSize: '1.5rem', cursor: 'pointer' }}
+                style={{ background: 'transparent', border: 'none', color: '#94a3b8', fontSize: '1.2rem', cursor: 'pointer', fontWeight: 'bold' }}
               >
-                ✖
+                X
               </button>
             </div>
 
-            {/* Messaggio del Proprietario */}
+            {/* Owner Message */}
             <div style={{ background: '#1e293b', padding: '16px', borderRadius: '8px', borderLeft: '4px solid #f59e0b', marginBottom: '20px', lineHeight: '1.5' }}>
               <p style={{ margin: '0 0 10px 0', fontStyle: 'italic', color: '#cbd5e1' }}>
-                "Investigatore, ho bisogno del tuo aiuto! Il mio amato gatto <strong>Fulgenzio</strong> è sparito dallo studentato ieri sera. Nessuno dice di averlo visto uscire, ma qualcuno sta chiaramente mentendo..."
+                "Detective, I need your help! My beloved cat <strong>Fulgenzio</strong> went missing from the student dorm last night. Nobody claims to have seen him leave, but someone is clearly lying..."
               </p>
               <p style={{ margin: 0, fontSize: '0.9rem', color: '#94a3b8' }}>
-                — Signor Amedeo, Proprietario dello Studentato
+                -- Mr. Amedeo, Dorm Owner
               </p>
             </div>
 
-            {/* Regole per il Giocatore */}
-            <h3 style={{ color: '#38bdf8', fontSize: '1.1rem', marginBottom: '10px' }}>Come trovare il colpevole:</h3>
+            {/* Rules for the Player */}
+            <h3 style={{ color: '#38bdf8', fontSize: '1.1rem', marginBottom: '10px' }}>How to find the culprit:</h3>
             <ol style={{ paddingLeft: '20px', lineHeight: '1.6', fontSize: '0.95rem', color: '#e2e8f0' }}>
               <li>
-                <strong>Esamina le Testimonianze:</strong> Clicca su <em>"Apri Dossier Testimonianze"</em> per leggere le dichiarazioni dei 16 studenti e annotate orari o comportamenti sospetti.
+                <strong>Examine Testimonies:</strong> Click on <em>"Open Testimonial Dossier"</em> to read statements from all 16 students and note down suspicious times or behaviors.
               </li>
               <li>
-                <strong>Studia il Database:</strong> Clicca su <em>"Struttura DB / ER"</em> per vedere come sono organizzate le tabelle <code>students</code> e <code>badge_logs</code>.
+                <strong>Study the Database:</strong> Click on <em>"DB Schema / ER"</em> to see how the <code>students</code> and <code>badge_logs</code> tables are structured.
               </li>
               <li>
-                <strong>Esegui Query SQL:</strong> Usa la console SQL per incrociare i badge con le testimonianze e scoprire chi ha un falso alibi.
+                <strong>Run SQL Queries:</strong> Use the SQL console to cross-reference badge logs with statements to uncover who has a false alibi.
               </li>
               <li>
-                <strong>Formula l'Accusa:</strong> Quando sei sicuro di chi ha mentito, seleziona il nome nel pannello di destra e invia l'accusa!
+                <strong>Make the Accusation:</strong> Once you are confident about who lied, select their name in the right-hand panel and submit your verdict!
               </li>
             </ol>
 
@@ -164,18 +145,18 @@ function App() {
                 className="btn-primary"
                 style={{ padding: '10px 24px', background: '#f59e0b', color: '#0f172a', fontWeight: 'bold', fontSize: '1rem', border: 'none', borderRadius: '6px', cursor: 'pointer' }}
               >
-                Inizia l'Indagine 🔍
+                Begin Investigation
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* MODALE SCHEMA ER / STRUTTURA TABELLE */}
+      {/* ER SCHEMA / TABLE STRUCTURE MODAL */}
       {showSchemaModal && (
         <div style={{
           position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          backgroundColor: 'rgba(15, 23, 42, 0.9)',
           display: 'flex', justifyContent: 'center', alignItems: 'center',
           zIndex: 1000, padding: '20px'
         }}>
@@ -185,14 +166,14 @@ function App() {
             overflowY: 'auto', color: '#f8fafc'
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-              <h2 style={{ margin: 0, color: '#38bdf8' }}>📂 Struttura Database & Schema ER</h2>
-              <button onClick={() => setShowSchemaModal(false)} style={{ background: 'transparent', border: 'none', color: '#94a3b8', fontSize: '1.5rem', cursor: 'pointer' }}>✖</button>
+              <h2 style={{ margin: 0, color: '#38bdf8', fontSize: '1.4rem' }}>Database Structure & ER Schema</h2>
+              <button onClick={() => setShowSchemaModal(false)} style={{ background: 'transparent', border: 'none', color: '#94a3b8', fontSize: '1.2rem', cursor: 'pointer', fontWeight: 'bold' }}>X</button>
             </div>
 
             <div style={{ background: '#1e293b', padding: '16px', borderRadius: '8px', marginBottom: '20px', border: '1px solid #334155' }}>
-              <h3 style={{ margin: '0 0 10px 0', fontSize: '1rem', color: '#e2e8f0' }}>🔗 Relazione Tra le Tabelle</h3>
+              <h3 style={{ margin: '0 0 10px 0', fontSize: '1rem', color: '#e2e8f0' }}>Table Relationship</h3>
               <div style={{ fontFamily: 'monospace', textAlign: 'center', background: '#0f172a', padding: '12px', borderRadius: '6px', color: '#38bdf8' }}>
-                <strong>students</strong> (1) ───&lt; (N) <strong>badge_logs</strong>
+                <strong>students</strong> (1) ---&lt; (N) <strong>badge_logs</strong>
                 <br />
                 <span style={{ fontSize: '0.85rem', color: '#94a3b8' }}>(students.id = badge_logs.student_id)</span>
               </div>
@@ -200,13 +181,13 @@ function App() {
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               <div style={{ background: '#1e293b', padding: '14px', borderRadius: '8px', border: '1px solid #334155' }}>
-                <h4 style={{ margin: '0 0 10px 0', color: '#facc15' }}>📊 students</h4>
+                <h4 style={{ margin: '0 0 10px 0', color: '#facc15' }}>students</h4>
                 <table style={{ width: '100%', fontSize: '0.85rem', textAlign: 'left', borderCollapse: 'collapse' }}>
                   <thead>
                     <tr style={{ borderBottom: '1px solid #475569', color: '#94a3b8' }}>
-                      <th style={{ padding: '4px' }}>Colonna</th>
-                      <th style={{ padding: '4px' }}>Tipo</th>
-                      <th style={{ padding: '4px' }}>Note</th>
+                      <th style={{ padding: '4px' }}>Column</th>
+                      <th style={{ padding: '4px' }}>Type</th>
+                      <th style={{ padding: '4px' }}>Notes</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -218,13 +199,13 @@ function App() {
               </div>
 
               <div style={{ background: '#1e293b', padding: '14px', borderRadius: '8px', border: '1px solid #334155' }}>
-                <h4 style={{ margin: '0 0 10px 0', color: '#facc15' }}>📊 badge_logs</h4>
+                <h4 style={{ margin: '0 0 10px 0', color: '#facc15' }}>badge_logs</h4>
                 <table style={{ width: '100%', fontSize: '0.85rem', textAlign: 'left', borderCollapse: 'collapse' }}>
                   <thead>
                     <tr style={{ borderBottom: '1px solid #475569', color: '#94a3b8' }}>
-                      <th style={{ padding: '4px' }}>Colonna</th>
-                      <th style={{ padding: '4px' }}>Tipo</th>
-                      <th style={{ padding: '4px' }}>Note</th>
+                      <th style={{ padding: '4px' }}>Column</th>
+                      <th style={{ padding: '4px' }}>Type</th>
+                      <th style={{ padding: '4px' }}>Notes</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -239,29 +220,37 @@ function App() {
             </div>
 
             <div style={{ marginTop: '20px', textAlign: 'right' }}>
-              <button onClick={() => setShowSchemaModal(false)} className="btn-primary" style={{ padding: '8px 16px' }}>Chiudi</button>
+              <button onClick={() => setShowSchemaModal(false)} className="btn-primary" style={{ padding: '8px 16px', background: '#38bdf8', color: '#0f172a', fontWeight: 'bold', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Close</button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Dossier Testimonianze Dinamico */}
+      {/* DYNAMIC TESTIMONIAL DOSSIER */}
       {showDossier && (
-        <div className="dossier-box" style={{ background: '#1e293b', padding: '16px', borderRadius: '8px', marginBottom: '20px', border: '1px solid #334155' }}>
-          <h3>Registro Verbali Testimonianze</h3>
+        <div className="dossier-box" style={{ background: '#1e293b', padding: '16px', borderRadius: '8px', margin: '20px', border: '1px solid #334155' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+            <h3 style={{ margin: 0, color: '#f8fafc', fontSize: '1.2rem' }}>Testimonial Statements Log</h3>
+            <button 
+              onClick={() => setShowDossier(false)} 
+              style={{ background: 'transparent', border: 'none', color: '#94a3b8', fontSize: '1.2rem', cursor: 'pointer', fontWeight: 'bold' }}
+            >
+              X
+            </button>
+          </div>
           <input 
             type="text" 
-            placeholder="Cerca per nome, stanza o parola chiave (es. gatto, porta)..."
+            placeholder="Search by name, room, or keyword (e.g., cat, door)..."
             value={filterText}
             onChange={(e) => setFilterText(e.target.value)}
-            style={{ width: '100%', padding: '8px', marginBottom: '12px', borderRadius: '4px', border: '1px solid #475569', background: '#0f172a', color: '#fff' }}
+            style={{ width: '100%', padding: '10px', marginBottom: '12px', borderRadius: '6px', border: '1px solid #475569', background: '#0f172a', color: '#f8fafc', boxSizing: 'border-box' }}
           />
           
           <div className="testimonials-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '12px', maxHeight: '350px', overflowY: 'auto' }}>
             {filteredTestimonials.map((t) => (
               <div key={t.student_id} className="card" style={{ padding: '12px', background: '#0f172a', borderRadius: '6px', border: '1px solid #334155' }}>
                 <h4 style={{ margin: '0 0 6px 0', color: '#38bdf8' }}>
-                  {t.name} <span style={{ fontSize: '0.8em', color: '#94a3b8' }}>(Stanza {t.room})</span>
+                  {t.name} <span style={{ fontSize: '0.85em', color: '#94a3b8' }}>(Room {t.room})</span>
                 </h4>
                 <p style={{ margin: 0, fontSize: '0.88em', color: '#cbd5e1', lineHeight: '1.4' }}>"{t.statement}"</p>
               </div>
@@ -270,68 +259,76 @@ function App() {
         </div>
       )}
 
-      <div className="dashboard">
-        {/* Console SQL */}
-        <section className="panel center-panel">
-          <h2>Console SQL</h2>
+      <div className="dashboard" style={{ padding: '20px', display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '20px' }}>
+        {/* SQL CONSOLE */}
+        <section className="panel center-panel" style={{ background: '#1e293b', padding: '20px', borderRadius: '8px', border: '1px solid #334155' }}>
+          <h2 style={{ margin: '0 0 16px 0', color: '#f8fafc', fontSize: '1.3rem' }}>SQL Console</h2>
           <textarea 
             value={query} 
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Scrivi qui la tua query SQL... "
+            placeholder="Write your SQL query here..."
             rows={5}
-            style={{ fontFamily: 'monospace' }}
+            style={{ width: '100%', fontFamily: 'Consolas, Monaco, monospace', background: '#0f172a', color: '#38bdf8', border: '1px solid #475569', borderRadius: '6px', padding: '12px', boxSizing: 'border-box', fontSize: '0.95rem' }}
           />
-          <button onClick={handleRunQuery} className="btn-primary" disabled={loading || !query.trim()} style={{ marginTop: '10px' }}>
-            ▶ Esegui Query
+          <button onClick={handleRunQuery} className="btn-primary" disabled={loading || !query.trim()} style={{ marginTop: '12px', padding: '10px 20px', background: '#38bdf8', color: '#0f172a', fontWeight: 'bold', border: 'none', borderRadius: '6px', cursor: query.trim() ? 'pointer' : 'not-allowed', opacity: query.trim() ? 1 : 0.6 }}>
+            Run Query
           </button>
 
-          {error && <div className="error-box">⚠️ {error}</div>}
+          {error && <div className="error-box" style={{ marginTop: '12px', padding: '12px', background: '#7f1d1d', color: '#fecaca', borderRadius: '6px', fontSize: '0.9rem' }}>Error: {error}</div>}
 
-          <div className="results-container">
-            <h3>Risultati:</h3>
+          <div className="results-container" style={{ marginTop: '20px' }}>
+            <h3 style={{ color: '#e2e8f0', fontSize: '1.1rem', marginBottom: '10px' }}>Results:</h3>
             {results && results.length > 0 ? (
-              <table>
-                <thead>
-                  <tr>
-                    {results[0].columns.map((col, idx) => (
-                      <th key={idx}>{col}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {results[0].values.map((row, rIdx) => (
-                    <tr key={rIdx}>
-                      {row.map((val, cIdx) => (
-                        <td key={cIdx}>{val}</td>
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem', color: '#cbd5e1' }}>
+                  <thead>
+                    <tr style={{ background: '#0f172a', textAlign: 'left', color: '#38bdf8' }}>
+                      {results[0].columns.map((col, idx) => (
+                        <th key={idx} style={{ padding: '8px 12px', borderBottom: '1px solid #475569' }}>{col}</th>
                       ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {results[0].values.map((row, rIdx) => (
+                      <tr key={rIdx} style={{ borderBottom: '1px solid #334155' }}>
+                        {row.map((val, cIdx) => (
+                          <td key={cIdx} style={{ padding: '8px 12px' }}>{val}</td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             ) : (
-              <p>Nessun risultato. Inserisci una query ed esegui.</p>
+              <p style={{ color: '#94a3b8', fontSize: '0.9rem' }}>No results. Enter a query and run it.</p>
             )}
           </div>
         </section>
 
-        {/* Pannello Accusa */}
-        <section className="panel right-panel">
-          <h2>Formula l'Accusa</h2>
+        {/* ACCUSATION PANEL */}
+        <section className="panel right-panel" style={{ background: '#1e293b', padding: '20px', borderRadius: '8px', border: '1px solid #334155' }}>
+          <h2 style={{ margin: '0 0 16px 0', color: '#f8fafc', fontSize: '1.3rem' }}>Make Your Accusation</h2>
           <form onSubmit={handleAccuse}>
-            <label>Chi è il colpevole?</label>
-            <select value={suspect} onChange={(e) => setSuspect(e.target.value)}>
-              <option value="">-- Seleziona Sospettato --</option>
+            <label style={{ display: 'block', marginBottom: '8px', color: '#cbd5e1', fontSize: '0.95rem' }}>Who is guilty?</label>
+            <select 
+              value={suspect} 
+              onChange={(e) => setSuspect(e.target.value)}
+              style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#0f172a', color: '#f8fafc', border: '1px solid #475569', fontSize: '0.95rem' }}
+            >
+              <option value="">-- Select Suspect --</option>
               {testimonials.map((t) => (
                 <option key={t.student_id} value={t.name}>
-                  {t.name} (Stanza {t.room})
+                  {t.name} (Room {t.room})
                 </option>
               ))}
             </select>
-            <button type="submit" className="btn-danger" style={{ marginTop: '12px' }}>Invia Accusa</button>
+            <button type="submit" className="btn-danger" style={{ marginTop: '16px', width: '100%', padding: '10px', background: '#ef4444', color: '#ffffff', fontWeight: 'bold', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>
+              Submit Accusation
+            </button>
           </form>
 
           {accusationResult && (
-            <div className="verdict" style={{ marginTop: '16px', padding: '12px', borderRadius: '6px', background: accusationResult.includes('🎉') ? '#065f46' : '#7f1d1d' }}>
+            <div className="verdict" style={{ marginTop: '20px', padding: '14px', borderRadius: '6px', background: accusationResult.includes('CASE SOLVED') ? '#065f46' : '#7f1d1d', color: '#f8fafc', lineHeight: '1.5', fontSize: '0.95rem' }}>
               {accusationResult}
             </div>
           )}
