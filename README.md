@@ -17,4 +17,5 @@ Learn SQL fundamentals by playing detective. Analyze suspect statements, query a
 ---
 
 # 🐱 Missing Cat
-🎮 **Gioca ora online:** [missing-cat.vercel.app](https://missing-cat.vercel.app)
+🎮 **Gioca ora online:** https://sql-game-two.vercel.app/
+
