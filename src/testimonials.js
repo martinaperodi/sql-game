@@ -45,7 +45,7 @@ export const testimonials = [
     student_id: 8,
     name: "Emi",
     room: 104,
-    statement: ""
+    statement: "Questo periodo di esami è uno strazio, almeno la sera posso mettermi con le cuffie in sala tv, per isolarmi dal mondo. Ci sono stata fino alle 22.15 spaccate."
   },
   {
     student_id: 9,
@@ -63,7 +63,7 @@ export const testimonials = [
     student_id: 11,
     name: "Jaco",
     room: 106,
-    statement: ""
+    statement: "Sono stato tre volte in cucina. Per prazo, per lavare i piatti e poi per cena. Non ho fatto caso se la ciotola del gatto fosse piena."
   },
   {
     student_id: 12,
