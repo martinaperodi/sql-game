@@ -45,11 +45,11 @@ function App() {
     e.preventDefault();
     if (suspect === 'Sandro') {
       setAccusationResult(
-        'CASE SOLVED! Sandro confessed under pressure! The badge logs and cross-referenced testimonies prove he was the only one who recorded an entry/exit at the Main Entrance (OUT/IN) between 8:45 PM and 8:47 PM, letting Fulgenzio escape after getting annoyed in the kitchen!'
+        'CASE SOLVED! Sandro confessed under pressure! The badge logs and cross-referenced testimonies prove he was the only one who recorded an entry/exit at the Main Entrance (OUT/IN) between 8:45 PM and 8:47 PM'
       );
     } else if (suspect) {
       setAccusationResult(
-        `WRONG! ${suspect} has a confirmed alibi supported by badge logs or cross-referenced testimonies. Double check the timestamps between 8:30 PM and 9:00 PM!`
+        `WRONG! ${suspect} has a confirmed alibi supported by badge logs or cross-referenced testimonies.`
       );
     }
   };
